@@ -16,6 +16,28 @@ services:
       - TYK_GW_SECRET=foo
     depends_on:
       - tyk-redis
+  animalservice:
+    build:
+      context: ./goservice
+      dockerfile: Dockerfile
+    environment:
+      - SERVICE_PORT=18080
+      - SERVICE_NAME=animalservice
+    ports:
+      - 18080:18080
+    networks:
+      - tyk
+  vehicleservice:
+    build:
+      context: ./goservice
+      dockerfile: Dockerfile
+    environment:
+      - SERVICE_PORT=18081
+      - SERVICE_NAME=vehicleservice
+    ports:
+      - 18081:18081
+    networks:
+      - tyk
   tyk-redis:
     image: redis:6.2.20-alpine
     networks:

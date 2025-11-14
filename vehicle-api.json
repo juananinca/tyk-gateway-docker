@@ -1,0 +1,89 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Animal API",
+        "description": "Simple service API with hello and status endpoints",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://vehicleservice:18081",
+            "description": "Local server"
+        }
+    ],
+    "paths": {
+        "/hello": {
+            "get": {
+                "summary": "Get hello message",
+                "description": "Returns a greeting message from the service",
+                "operationId": "getHello",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/status": {
+            "get": {
+                "summary": "Get service status",
+                "description": "Returns the current status and uptime of the service",
+                "operationId": "getStatus",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StatusResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Response": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Hello from default-service!"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-01-15T10:30:00Z"
+                    }
+                }
+            },
+            "StatusResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "ok"
+                    },
+                    "version": {
+                        "type": "string",
+                        "example": "1.0.0"
+                    },
+                    "uptime": {
+                        "type": "string",
+                        "example": "1h30m45s"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+docker compose up -d
+curl localhost:8080/hello
+
+// Comprobamos las APIs actuales
+curl localhost:8080/tyk/apis -H 'x-tyk-authorization: foo' | jq > apis.json
+
+// Importamos la nueva API
+curl -X POST localhost:8080/tyk/apis/oas/import -d @animal-api.json -H 'x-tyk-authorization: foo' -H 'content-type: text/plain'
+// O importamos dos indicando el listenPath diferente para cada caso:
+curl -X POST localhost:8080/tyk/apis/oas/import?listenPath=/animal -d @animal-api.json -H 'x-tyk-authorization: foo' -H 'content-type: text/plain' 
+curl -X POST localhost:8080/tyk/apis/oas/import?listenPath=/vehicle -d @vehicle-api.json -H 'x-tyk-authorization: foo' -H 'content-type: text/plain' 
+
+
+// Recargamos los grupos de APIs
+curl localhost:8080/tyk/reload/group -H 'x-tyk-authorization: foo'
+
+// Comprobamos que la nueva API está cargada (tarda un poco)
+curl localhost:8080/tyk/apis -H 'x-tyk-authorization: foo' | jq > apis.json
+
+// Lanzamos la petición a la nueva API
+curl localhost:8080/greetings

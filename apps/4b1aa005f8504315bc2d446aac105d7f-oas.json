@@ -1,0 +1,120 @@
+{
+  "components": {
+    "schemas": {
+      "Response": {
+        "properties": {
+          "message": {
+            "example": "Hello from default-service!",
+            "type": "string"
+          },
+          "timestamp": {
+            "example": "2024-01-15T10:30:00Z",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "StatusResponse": {
+        "properties": {
+          "status": {
+            "example": "ok",
+            "type": "string"
+          },
+          "uptime": {
+            "example": "1h30m45s",
+            "type": "string"
+          },
+          "version": {
+            "example": "1.0.0",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "Simple service API with hello and status endpoints",
+    "title": "Animal API",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/hello": {
+      "get": {
+        "description": "Returns a greeting message from the service",
+        "operationId": "getHello",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "summary": "Get hello message"
+      }
+    },
+    "/status": {
+      "get": {
+        "description": "Returns the current status and uptime of the service",
+        "operationId": "getStatus",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "summary": "Get service status"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8080/vehicle"
+    },
+    {
+      "description": "Local server",
+      "url": "http://vehicleservice:18081"
+    }
+  ],
+  "x-tyk-api-gateway": {
+    "info": {
+      "id": "4b1aa005f8504315bc2d446aac105d7f",
+      "name": "Animal API",
+      "state": {
+        "active": true
+      }
+    },
+    "upstream": {
+      "url": "http://vehicleservice:18081"
+    },
+    "server": {
+      "listenPath": {
+        "value": "/vehicle",
+        "strip": true
+      }
+    },
+    "middleware": {
+      "global": {
+        "contextVariables": {
+          "enabled": true
+        },
+        "trafficLogs": {
+          "enabled": true
+        }
+      }
+    }
+  }
+}
