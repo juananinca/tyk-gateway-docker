@@ -19,3 +19,6 @@ curl localhost:8080/tyk/apis -H 'x-tyk-authorization: foo' | jq > apis.json
 
 // Lanzamos la petición a la nueva API
 curl localhost:8080/greetings
+// O en el caso de dos APIs:
+curl localhost:8080/animal/greetings
+curl localhost:8080/vehicle/greetings

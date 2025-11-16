@@ -56,9 +56,36 @@ func statusHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(response)
 }
 
+func submitHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	if r.Method != http.MethodPost {
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var req struct {
+		Field1 float64 `json:"field1"`
+		Field2 string  `json:"field2"`
+	}
+
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "bad request: "+err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	resp := map[string]interface{}{
+		"received":  req,
+		"message":   fmt.Sprintf("Received field1=%s and field2=%s", req.Field1, req.Field2),
+		"timestamp": time.Now(),
+	}
+
+	json.NewEncoder(w).Encode(resp)
+}
+
 func main() {
 	http.HandleFunc("/greetings", helloHandler)
 	http.HandleFunc("/status", statusHandler)
+	http.HandleFunc("/submit", submitHandler)
 	
 	port := fmt.Sprintf(":%s", os.Getenv("SERVICE_PORT"))
 	log.Printf("Starting server on port %s", port)

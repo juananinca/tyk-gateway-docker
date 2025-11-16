@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.3",
     "info": {
-        "title": "Animal API",
+        "title": "Vehicle API",
         "description": "Simple service API with hello and status endpoints",
         "version": "1.0.0"
     },

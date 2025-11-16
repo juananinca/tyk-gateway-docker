@@ -50,6 +50,53 @@
                 }
             }
         }
+        ,
+        "/submit": {
+            "post": {
+                "summary": "Submit animal data",
+                "description": "Submits a new animal record to the service",
+                "operationId": "submitAnimal",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "field1": {
+                                        "type": "number",
+                                        "example": 123
+                                    },
+                                    "field2": {
+                                        "type": "string",
+                                        "example": "hola"
+                                    }
+                                },
+                                "required": ["field1", "field2"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Animal created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        }
     },
     "components": {
         "schemas": {
