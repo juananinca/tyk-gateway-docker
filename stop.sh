@@ -10,3 +10,4 @@ if [ -d "$apps_dir" ]; then
         ! -name 'protected-api.json' \
         -delete
 fi
+rm -rf tyk_apis
