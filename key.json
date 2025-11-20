@@ -1,0 +1,21 @@
+{
+    "rate": 1000,
+    "per": 60,
+    "expires": 0,
+    "quota_max": -1,
+    "quota_renews": 1406121006,
+    "quota_remaining": 0,
+    "quota_renewal_rate": 60,
+    "org_id": "posc_ndr",
+    "hmac_enabled": true,
+    "hmac_string": "test_secret",
+    "access_rights": {
+        "f4353099e04d42308b82d4fdc17a5a52": {
+            "api_name": "Animal API",
+            "api_id": "f4353099e04d42308b82d4fdc17a5a52",
+            "versions": [
+                ""
+            ]
+        }
+    }
+}

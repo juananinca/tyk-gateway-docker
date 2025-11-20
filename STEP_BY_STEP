@@ -22,3 +22,16 @@ curl localhost:8080/greetings
 // O en el caso de dos APIs:
 curl localhost:8080/animal/greetings
 curl localhost:8080/vehicle/greetings
+
+
+// Otros comandos útiles
+
+// Merge de configuración de rate limiting en la API
+jq -s '.[0] * .[1]' tyk_apis/animal-api.json ratelimit.json > merged.json
+
+// Actualizar una API existente
+curl -X PUT localhost:8080/tyk/apis/oas/API_ID -d @merged.json -H 'x-tyk-authorization: foo' -H 'content-type: text/plain'
+
+
+// Crear una nueva key
+curl localhost:8080/tyk/keys/create -d @key.json -H 'x-tyk-authorization: foo'

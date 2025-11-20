@@ -83,7 +83,7 @@ func submitHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/greetings", helloHandler)
+	http.HandleFunc("/hello", helloHandler)
 	http.HandleFunc("/status", statusHandler)
 	http.HandleFunc("/submit", submitHandler)
 	
